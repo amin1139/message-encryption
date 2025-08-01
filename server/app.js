@@ -5,7 +5,7 @@ const app = express();
 import { connectWithMongoose } from './db/connection1.db.js';
 import cors from 'cors';
 
-app.use(cors({origin: ['http://localhost:1234', 'https://emojis-message-encryption.netlify.app']}));
+app.use(cors({origin: ['https://emojis-message-encryption.netlify.app']}));
 
 app.use(express.json());
 
