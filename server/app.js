@@ -5,7 +5,7 @@ const app = express();
 import { connectWithMongoose } from './db/connection1.db.js';
 import cors from 'cors';
 
-app.use(cors({origin: ['https://emojis-message-encryption.netlify.app']}));
+app.use(cors({origin: ['https://emojis-message-encryption.netlify.app']}));     // Allow requests from the Netlify production URL
 
 app.use(express.json());
 
