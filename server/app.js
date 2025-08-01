@@ -19,10 +19,6 @@ app.use("/decrypt", decryptRoute);
 
 
 
-connectWithMongoose().then(() => {
-    app.listen(3000, () => {
-        console.log('🚀 Server running on http://localhost:3000');
-    });
-});
+connectWithMongoose()
 
 export default app; 
