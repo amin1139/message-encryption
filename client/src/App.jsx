@@ -3,6 +3,7 @@ import EncryptorTitle from './component/EncryptorTitle';
 import ModeToggle from './component/ModeToggle';
 import EncryptorForm from './component/EncryptorForm';
 import ResultDisplay from './component/ResultDisplay';
+import EmojiLoader from './component/Loader.jsx';
 import { decryptedMessage, encryptedMessage } from '../src/utils/api.js';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
   const [resPasskey, setResPasskey] = useState('');
   const [decryptValidation, setDecryptValidation] = useState(false);
   const [validation, setValidation] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleEncrypt = () => {
     if (!message || !password) {
@@ -21,7 +23,7 @@ export default function App() {
       return;
     }
     
-    encryptedMessage(message,password, setDecryptValidation, setResult,setMessage, setPassword, setResPasskey )
+    encryptedMessage(message,password, setDecryptValidation, setResult,setMessage, setPassword, setResPasskey,setLoading )
   };
 
   const handleDecrypt = () => {
@@ -30,7 +32,7 @@ export default function App() {
       return;
     }
 
-    decryptedMessage(message, password, setDecryptValidation, setResult, setMessage, setPassword, setResPasskey);
+    decryptedMessage(message, password, setDecryptValidation, setResult, setMessage, setPassword, setResPasskey,setLoading);
   };
 
   const handleClear = () => {
@@ -41,6 +43,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen px-4 py-10 bg-gradient-to-br from-black via-gray-900 to-black text-white font-sans">
+
+      {loading && <EmojiLoader />}
+      
       <EncryptorTitle />
       <ModeToggle mode={mode} setMode={setMode} />
       <EncryptorForm

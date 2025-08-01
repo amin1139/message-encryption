@@ -21,4 +21,6 @@ app.use("/decrypt", decryptRoute);
 
 connectWithMongoose()
 
+app.listen(3000, () => {})
+
 export default app; 
