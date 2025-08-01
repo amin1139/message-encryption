@@ -1,0 +1,68 @@
+import React, { useState } from 'react';
+import EncryptorTitle from './component/EncryptorTitle';
+import ModeToggle from './component/ModeToggle';
+import EncryptorForm from './component/EncryptorForm';
+import ResultDisplay from './component/ResultDisplay';
+import { decryptedMessage, encryptedMessage } from '../src/utils/api.js';
+
+export default function App() {
+  const [mode, setMode] = useState('encrypt');
+  const [message, setMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const [result, setResult] = useState('');
+  const [resPasskey, setResPasskey] = useState('');
+  const [decryptValidation, setDecryptValidation] = useState(false);
+  const [validation, setValidation] = useState('');
+
+  const handleEncrypt = () => {
+    if (!message || !password) {
+      setValidation(true);
+      setTimeout(() => setValidation(false), 3000)
+      return;
+    }
+    
+    encryptedMessage(message,password, setDecryptValidation, setResult,setMessage, setPassword, setResPasskey )
+  };
+
+  const handleDecrypt = () => {
+    if (!message || !password) {
+      setValidation(true);
+      return;
+    }
+
+    decryptedMessage(message, password, setDecryptValidation, setResult, setMessage, setPassword, setResPasskey);
+  };
+
+  const handleClear = () => {
+    setMessage('');
+    setPassword('');
+    setResult('');
+  };
+
+  return (
+    <div className="min-h-screen px-4 py-10 bg-gradient-to-br from-black via-gray-900 to-black text-white font-sans">
+      <EncryptorTitle />
+      <ModeToggle mode={mode} setMode={setMode} />
+      <EncryptorForm
+        validation={validation}
+        setValidation={setValidation}
+        message={message}
+        setMessage={setMessage}
+        password={password}
+        setPassword={setPassword}
+        onEncrypt={mode === 'encrypt' ? handleEncrypt : handleDecrypt}
+        onClear={handleClear}
+        mode={mode}
+        decryptValidation={ decryptValidation }
+      />
+      
+      {result && <ResultDisplay result={result}/>}
+      
+      {resPasskey && <ResultDisplay result={resPasskey}/>}
+
+      <div className="mt-16 text-center text-sm text-gray-500">
+        Made with ❤️ for secure and fun messaging
+      </div>
+    </div>
+  );
+}
