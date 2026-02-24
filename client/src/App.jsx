@@ -3,6 +3,7 @@ import EncryptorTitle from './component/EncryptorTitle';
 import ModeToggle from './component/ModeToggle';
 import EncryptorForm from './component/EncryptorForm';
 import ResultDisplay from './component/ResultDisplay';
+import useOnlineStatus from "./utils/useOnlineStatus";
 import EmojiLoader from './component/Loader.jsx';
 import { decryptedMessage, encryptedMessage } from '../src/utils/api.js';
 
@@ -15,6 +16,7 @@ export default function App() {
   const [decryptValidation, setDecryptValidation] = useState(false);
   const [validation, setValidation] = useState('');
   const [loading, setLoading] = useState(false);
+  const status = useOnlineStatus()
 
   const handleEncrypt = () => {
     if (!message || !password) {
@@ -40,6 +42,10 @@ export default function App() {
     setPassword('');
     setResult('');
   };
+
+  if(!status){
+    return <div className="px-6 py-10 text-3xl font-bold text-gray-800 dark:text-slate-100">NO INTERNET</div>
+  }
 
   return (
     <div className="min-h-screen px-4 py-10 bg-gradient-to-br from-black via-gray-900 to-black text-white font-sans">
