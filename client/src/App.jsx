@@ -44,7 +44,7 @@ export default function App() {
   };
 
   if(!status){
-    return <div className="px-6 py-10 text-3xl font-bold text-gray-800 dark:text-slate-100">NO INTERNET</div>
+    return <div className="px-6 py-10 text-3xl font-bold bg-gradient-to-br from-black via-gray-900 to-black text-white font-sans">NO INTERNET</div>
   }
 
   return (
